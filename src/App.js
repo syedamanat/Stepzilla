@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,  { useRef, useEffect }  from 'react';
+import StepZilla from "react-stepzilla";
 
-function App() {
+import Step1 from './steps/step1';
+import Step2 from './steps/step2';
+import Step3 from './steps/step3';
+import Step4 from './steps/step4';
+
+function App(props) {
+
+  const steps =
+    [
+      {name: 'Step 1', component: <Step1 />},
+      {name: 'Step 2', component: <Step2 />},
+      {name: 'Step 3', component: <Step3 />},
+      {name: 'Step 4', component: <Step4 />}
+    ]
+    const refs = useRef(null);
+
+    function stepChange(e){
+      console.log(e)
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='step-progress'>
+      <StepZilla
+      ref={refs}
+      showNavigation={true} 
+      showSteps={false} 
+      dontValidate={false} 
+      preventEnterSubmission={true} 
+      startAtStep={0} 
+      onStepChange={stepChange} 
+      steps={steps}
+      hocValidationAppliedTo= {[0]}
+     />
     </div>
   );
 }
